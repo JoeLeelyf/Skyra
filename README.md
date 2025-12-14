@@ -15,7 +15,7 @@
   </a>
 </p>
 
-> **Abstract:** The misuse of AI-driven video generation technologies has raised serious social concerns, highlighting the urgent need for reliable AI-generated video detectors. However, most existing methods are limited to binary classification and lack the necessary explanations for human interpretation. In this paper, we present Skyra, a specialized multimodal large language model (MLLM) that identifies human-perceivable visual artifacts in AI-generated videos and leverages them as grounded evidence for both detection and explanation. To support this objective, we construct ViF-CoT-4K for Supervised Fine-Tuning (SFT), which represents the first large-scale AI-generated video artifact dataset with fine-grained human annotations. We then develop a two-stage training strategy that systematically enhances our model's spatio-temporal artifact perception, explanation capability, and detection accuracy. Extensive experiments demonstrate that Skyra surpasses existing methods across multiple benchmarks, providing valuable insights for advancing explainable AI-generated video detection.
+> **Abstract:** The misuse of AI-driven video generation technologies has raised serious social concerns, highlighting the urgent need for reliable AI-generated video detectors. However, most existing methods are limited to binary classification and lack the necessary explanations for human interpretation. In this paper, we present **Skyra**, a specialized multimodal large language model (MLLM) that identifies human-perceivable visual artifacts in AI-generated videos and leverages them as grounded evidence for both detection and explanation. To support this objective, we construct **ViF-CoT-4K** for Supervised Fine-Tuning (SFT), which represents the first large-scale AI-generated video artifact dataset with fine-grained human annotations. We then develop a two-stage training strategy that systematically enhances our model's spatio-temporal artifact perception, explanation capability, and detection accuracy. Extensive experiments demonstrate that Skyra surpasses existing methods across multiple benchmarks, providing valuable insights for advancing explainable AI-generated video detection.
 
 ## 🌟 Introduction
 
@@ -76,7 +76,7 @@ Skyra achieves state-of-the-art performance, significantly outperforming binary 
 
 ### Evaluation
 
-[cite_start]To reproduce our results on **ViF-Bench** [cite: 9] or **GenVideo**:
+To reproduce our results on **ViF-Bench**:
 
 ```bash
 # Evaluate on ViF-Bench
@@ -85,7 +85,6 @@ bash scripts/eval/vif_bench.sh
 # Evaluate on GenVideo (OOD Generalization)
 bash scripts/eval/genvideo.sh
 ```
-
 
 
 
