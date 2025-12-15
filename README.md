@@ -7,7 +7,7 @@
   <a href="https://arxiv.org/abs/XXXX.XXXXX" style="margin-right: 10px;">
     <img src="https://img.shields.io/badge/arXiv-25XX.XXXXX-b31b1b.svg?logo=arXiv">
   </a>
-  <a href="https://huggingface.co/datasets/YourOrg/ViF-CoT-4K" style="margin-right: 10px;">
+  <a href="https://huggingface.co/collections/JoeLeelyf/skyra" style="margin-right: 10px;">
     <img src="https://img.shields.io/badge/🤗%20Hugging%20Face-Skyra-ffd21e">
   </a>
   <a href="https://joeleelyf.github.io/Skyra/" style="margin-right: 10px;">
@@ -68,24 +68,58 @@ Skyra achieves state-of-the-art performance, significantly outperforming binary 
 - **Inference**: follow [Qwen-2.5-VL](https://huggingface.co/Qwen/Qwen2.5-VL-7B-Instruct) for quick start and [vLLM](https://github.com/vllm-project/vllm) for deployment.
 
 ### Data Preparation
+- Training data: Download and prepare the **ViF-CoT-4K** dataset from [here](https://huggingface.co/datasets/JoeLeelyf/ViF-CoT-4K).
+
+- Evaluation data: Download evaluation datasets (e.g., **ViF-Bench**) from [here](https://huggingface.co/datasets/JoeLeelyf/ViF-Bench). And modify the path to your local directory in `test_index.json`.
+The `test_index.json` file should contain the following format:
+```json
+{
+    "Real": [
+        "path_to_parsed_frames_dir/Real/gdymHI9S6gM-0",
+        ...
+    ],
+    "LTX-Video-13B-T": [
+        "path_to_parsed_frames_dir/Fake/LTX-Video-13B-T/gdymHI9S6gM-0",
+        ...
+    ],
+    ...
+```
 
 ### Supervised Fine-Tuning (SFT)
+We use LLaMA-Factory for SFT. You can start training after setup the dataset config following the instructions in the LLaMA-Factory repository.
+
+```bash
+cd train/LLaMA-Factory
+bash train.sh
+```
 
 ### Reinforcement Learning (RL)
-
+We use verl for RL training with GRPO, with adapted reward design provided in `train/verl/verl/utils/reward_score/ladm.py`.
 
 ### Evaluation
 
-To reproduce our results on **ViF-Bench**:
+Evaluate scripts are provided in the `eval/` directory. You can run the evaluation script as follows:
 
+- inference: Run inference to get model predictions and explanations, save the results in a JSON file.
 ```bash
-# Evaluate on ViF-Bench
-bash scripts/eval/vif_bench.sh
-
-# Evaluate on GenVideo (OOD Generalization)
-bash scripts/eval/genvideo.sh
+cd eval
+bash scripts/Skyra/inference.sh
+# or
+python inference.py \
+    --index_json /path_to/test_index.json \
+    --model_path /path_to/Skyra-SFT \
+    --model_name Skyra-SFT \
+    --save_dir results/Skyra
 ```
 
+- evaluation: Evaluate the model predictions against ground truth and compute metrics.
+```bash
+cd eval
+bash scripts/Skyra/eval.sh
+# or
+python eval.py \
+    --json_file_path results/Skyra/Skyra-SFT_predictions.json
+```
 
 
 ## ⚖️ License
