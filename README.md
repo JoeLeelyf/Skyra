@@ -4,7 +4,7 @@
 </h1>
 
 <p align="center">
-  <a href="https://arxiv.org/abs/XXXX.XXXXX" style="margin-right: 10px;">
+  <a href="https://arxiv.org/abs/2512.15693" style="margin-right: 10px;">
     <img src="https://img.shields.io/badge/arXiv-25XX.XXXXX-b31b1b.svg?logo=arXiv">
   </a>
   <a href="https://huggingface.co/collections/JoeLeelyf/skyra" style="margin-right: 10px;">
