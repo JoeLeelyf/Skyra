@@ -131,10 +131,13 @@ The **ViF-CoT-4K** dataset and **Skyra** model weights are released under the **
 If you find Skyra or ViF-CoT-4K useful, please cite our paper:
 
 ```bibtex
-@article{li2025skyra,
-  title={Skyra: AI-Generated Video Detection via Grounded Artifact Reasoning},
-  author={Yifei Li and Wenzhao Zheng and Yanran Zhang and Runze Sun and Yu Zheng and Lei Chen and Jie Zhou and Jiwen Lu},
-  journal={arXiv preprint arXiv:XXXX.XXXXX},
-  year={2025}
+@misc{li2025skyraaigeneratedvideodetection,
+      title={Skyra: AI-Generated Video Detection via Grounded Artifact Reasoning}, 
+      author={Yifei Li and Wenzhao Zheng and Yanran Zhang and Runze Sun and Yu Zheng and Lei Chen and Jie Zhou and Jiwen Lu},
+      year={2025},
+      eprint={2512.15693},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2512.15693}, 
 }
 ```
