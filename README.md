@@ -5,7 +5,7 @@
 
 <p align="center">
   <a href="https://arxiv.org/abs/2512.15693" style="margin-right: 10px;">
-    <img src="https://img.shields.io/badge/arXiv-25XX.XXXXX-b31b1b.svg?logo=arXiv">
+    <img src="https://img.shields.io/badge/arXiv-2512.15693-b31b1b.svg?logo=arXiv">
   </a>
   <a href="https://huggingface.co/collections/JoeLeelyf/skyra" style="margin-right: 10px;">
     <img src="https://img.shields.io/badge/🤗%20Hugging%20Face-Skyra-ffd21e">
