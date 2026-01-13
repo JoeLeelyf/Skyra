@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Skyra: AI-Generated Video Detection via Grounded Artifact Reasoning">
+  <meta property="og:title" content="Skyra" />
+  <meta property="og:description"
+        content="The first MLLM designed for interpretable, artifact-centric AI-generated video detection." />
+  <meta name="keywords" content="AIGC detection; Video LLM; Deepfake; Multimodal">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Skyra: AI-Generated Video Detection</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="static/images/logo.png"> <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+</head>
+<body>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title"><b style="color: #0088cc;">Skyra</b> </h1>
+							<h2 class="subtitle is-3 publication-subtitle">
+								AI-Generated Video Detection via Grounded Artifact Reasoning
+							</h2>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=AkjeQ14AAAAJ&hl=en">Yifei Li</a>,</span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?hl=en&user=LdK9scgAAAAJ">Wenzhao Zheng</a><sup>†</sup>,</span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?hl=en&user=A8fcSBcAAAAJ">Yanran Zhang</a>,</span>
+              <span class="author-block">
+                <a href="#">Runze Sun</a>,</span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=J4ZIfhwAAAAJ&hl=zh-CN">Yu Zheng</a>,</span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=8bMh-FQAAAAJ&hl=en&oi=sra">Lei Chen</a><sup>*</sup>,</span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=6a79aPwAAAAJ&hl=en">Jie Zhou</a>,</span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=TN8uDQoAAAAJ&hl=en">Jiwen Lu</a>
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Department of Automation, Tsinghua University</span><br>
+              <span class="author-block"><sup>†</sup> Project Leader &nbsp;&nbsp; <sup>*</sup> Corresponding Author</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2512.15693" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="ai ai-arxiv"></i></span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                
+                <span class="link-block">
+                  <a href="https://github.com/JoeLeelyf/Skyra" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fab fa-github"></i></span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://huggingface.co/datasets/JoeLeelyf/ViF-CoT-4K" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><p style="font-size:18px">🤗</p></span>
+                    <span>ViF-CoT-4K Dataset</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="https://huggingface.co/datasets/JoeLeelyf/ViF-Bench" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><p style="font-size:18px">🤗</p></span>
+                    <span>ViF-Bench</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="https://huggingface.co/JoeLeelyf/Skyra-SFT" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><p style="font-size:18px">🤗</p></span>
+                    <span>Skyra-SFT</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="https://huggingface.co/JoeLeelyf/Skyra-RL" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><p style="font-size:18px">🤗</p></span>
+                    <span>Skyra-RL</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <img src="static/images/teaser.png" alt="Skyra Teaser" style="width: 100%;">
+        <h2 class="subtitle has-text-centered">
+          <b>Skyra</b> identifies human-perceivable visual artifacts (e.g., shape distortion, physics violations) in AI-generated videos and leverages them as grounded evidence for both detection and explanation.
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              The misuse of AI-driven video generation technologies has raised serious social concerns, highlighting the urgent need for reliable AI-generated video detectors. However, most existing methods are limited to binary classification and lack the necessary explanations for human interpretation. 
+
+              In this paper, we present <b>Skyra</b>, a specialized multimodal large language model (MLLM) that identifies human-perceivable visual artifacts in AI-generated videos and leverages them as grounded evidence for both detection and explanation. To support this objective, we construct <b>ViF-CoT-4K</b> for Supervised Fine-Tuning (SFT), which represents the first large-scale AI-generated video artifact dataset with fine-grained human annotations. We then develop a two-stage training strategy that systematically enhances our model's spatio-temporal artifact perception, explanation capability, and detection accuracy. 
+
+              Extensive experiments demonstrate that Skyra surpasses existing methods across multiple benchmarks, providing valuable insights for advancing explainable AI-generated video detection.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full">
+          <h2 class="title is-3">Fine-Grained Artifact Taxonomy & Dataset</h2>
+        </div>
+      </div>
+      
+      <div class="columns is-centered">
+        <div class="column is-full has-text-centered">
+          <img src="static/images/taxonomy.png" alt="Artifact Taxonomy" style="width: 50%;">
+          <p class="content has-text-justified" style="margin-top: 15px;">
+            We propose a hierarchical taxonomy (L1: Low-level Forgery & Violation of Laws) containing categories like <i>Physics Violation</i>, <i>Object Inconsistency</i>, and <i>Texture Anomaly</i> to support fine-grained reasoning.
+          </p>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="columns is-centered">
+        <div class="column is-full has-text-centered">
+          <h3 class="title is-4">ViF-CoT-4K Dataset</h3>
+          <img src="static/images/annotation_pipeline.png" alt="Dataset Statistics" style="width: 100%;">
+          <img src="static/images/statistics.png" alt="Dataset Statistics" style="width: 80%;">
+          <div class="content has-text-justified">
+            <p>
+              <b>ViF-CoT-4K</b> is the first large-scale dataset with manual fine-grained artifact annotations. It includes:
+              <ul>
+                <li><b>Diverse Generators:</b> Sora-2, Wan2.1, Kling, CogVideoX, etc.</li>
+                <li><b>Grounded CoT:</b> Step-by-step reasoning chains with timestamps and bounding boxes.</li>
+                <li><b>High Quality:</b> Reduced real-fake discrepancies to prevent shortcut learning.</li>
+              </ul>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full">
+          <h2 class="title is-3">Skyra Framework: From SFT to RL</h2>
+        </div>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-full">
+           <img src="static/images/method_overview.png" alt="Skyra Method" style="width: 100%;">
+           <div class="content has-text-justified" style="margin-top: 20px;">
+             <p>
+               We employ a two-stage training pipeline:
+               <ol>
+                 <li><b>Cold-Start Initialization (SFT):</b> Using ViF-CoT-4K to endow the model with basic perception of artifacts and grounded reasoning capabilities.</li>
+                 <li><b>Reinforcement Learning (RL):</b> Using Group Relative Policy Optimization (GRPO) with a custom <b>Asymmetric Reward</b> mechanism. This encourages the model to actively explore artifacts (high penalty for missing fakes) while maintaining strict format verification.</li>
+               </ol>
+             </p>
+           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full">
+          <h2 class="title is-3">Experimental Results</h2>
+        </div>
+      </div>
+
+      <div class="columns is-centered">
+        <div class="column is-5 has-text-centered">
+           <img src="static/images/performance.png" alt="Radar Chart Performance" style="width: 100%;">
+           <p class="is-size-7">Performance comparison on ViF-Bench across various generators.</p>
+        </div>
+      </div>
+
+      <div class="columns is-centered">
+        <div class="column is-7">
+          <div class="content">
+            <p>
+              <b>Skyra</b> achieves state-of-the-art performance on the proposed <b>ViF-Bench</b> and the external <b>GenVideo</b> benchmark.
+            </p>
+            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>Type</th>
+                  <th>Acc (%)</th>
+                  <th>F1 Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>DeMamba</td>
+                  <td>Binary</td>
+                  <td>64.29</td>
+                  <td>73.00</td>
+                </tr>
+                <tr>
+                  <td>GPT-4.1-mini</td>
+                  <td>MLLM</td>
+                  <td>54.08</td>
+                  <td>24.21</td>
+                </tr>
+                <tr>
+                  <td>Gemini-2.5-flash</td>
+                  <td>MLLM</td>
+                  <td>53.36</td>
+                  <td>57.48</td>
+                </tr>
+                <tr>
+                  <td>BusterX++</td>
+                  <td>MLLM-based</td>
+                  <td>56.90</td>
+                  <td>21.94</td>
+                </tr>
+                <tr style="background-color: #e6f7ff; font-weight: bold;">
+                  <td>Skyra (Ours-RL)</td>
+                  <td>MLLM-based</td>
+                  <td>91.02</td>
+                  <td>90.27</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="is-size-7">
+              [cite_start]Comparison on ViF-Bench (Mean). Skyra significantly outperforms both binary detectors and generic MLLMs. [cite: 378]
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero is-small is-light">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">Grounded Reasoning Examples</h2>
+        <div id="results-carousel" class="carousel results-carousel">
+          
+          <div class="item">
+            <img src="static/images/examples/0.png"/>
+            <h3 class="has-text-centered">Detection of Shape Distortion (Hands)</h3>
+          </div>
+
+          <div class="item">
+            <img src="static/images/examples/1.png"/>
+            <h3 class="has-text-centered">Violation of Physical Laws (Fluid Dynamics)</h3>
+          </div>
+
+          <div class="item">
+            <img src="static/images/examples/2.png"/>
+            <h3 class="has-text-centered">Abnormal Object Disappearance</h3>
+          </div>
+          
+           <div class="item">
+            <img src="static/images/examples/3.png"/>
+            <h3 class="has-text-centered">Reasoning on Real Videos (No Artifacts)</h3>
+          </div>
+
+          <div class="item">
+            <img src="static/images/examples/4.png"/>
+            <h3 class="has-text-centered">Abnormal Object Disappearance</h3>
+          </div>
+
+          <div class="item">
+            <img src="static/images/examples/5.png"/>
+            <h3 class="has-text-centered">Abnormal Object Disappearance</h3>
+          </div>
+
+          <div class="item">
+            <img src="static/images/examples/6.png"/>
+            <h3 class="has-text-centered">Abnormal Object Disappearance</h3>
+          </div>
+
+          <div class="item">
+            <img src="static/images/examples/7.png"/>
+            <h3 class="has-text-centered">Abnormal Object Disappearance</h3>
+          </div>
+
+          <div class="item">
+            <img src="static/images/examples/8.png"/>
+            <h3 class="has-text-centered">Abnormal Object Disappearance</h3>
+          </div>
+
+          <div class="item">
+            <img src="static/images/examples/9.png"/>
+            <h3 class="has-text-centered">Abnormal Object Disappearance</h3>
+          </div>
+
+        </div>
+        <div class="content has-text-centered" style="margin-top: 10px;">
+          <p>Skyra provides detailed textual explanations and spatial-temporal grounding (bounding boxes & timestamps) for its decisions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@article{li2025skyra,
+  title={Skyra: AI-Generated Video Detection via Grounded Artifact Reasoning},
+  author={Li, Yifei and Zheng, Wenzhao and Zhang, Yanran and Sun, Runze and Zheng, Yu and Chen, Lei and Zhou, Jie and Lu, Jiwen},
+  journal={arXiv preprint arXiv:2512.15693},
+  year={2025}
+}</code></pre>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <p>
+          Page template borrowed from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> and <a href="https://joeleelyf.github.io/OVO-Bench/">OVO-Bench</a>.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
