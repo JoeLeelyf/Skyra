@@ -157,7 +157,7 @@ class ViFBench(ABC):
             print("No tasks to process. Exiting.")
             return
 
-        pbar = tqdm(self.all_tasks, desc=f"LADMBench Evaluation ({self.model_name} on {self.dataset_set_name})")
+        pbar = tqdm(self.all_tasks, desc=f"LADMBench Evaluation ({self.model_name})")
         
         for i, task in enumerate(pbar):
             frame_dir = task['frame_dir_path']
@@ -186,4 +186,4 @@ class ViFBench(ABC):
                 self._save_results(final=False)
 
         self._save_results(final=True)
-        print("评测完成。")
+        print("Evaluation Complete")

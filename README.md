@@ -121,6 +121,67 @@ python eval.py \
     --json_file_path results/Skyra/Skyra-SFT_predictions.json
 ```
 
+### End-to-End Inference
+
+We provide a self-contained end-to-end inference pipeline in `eval/inference_end2end/`, which integrates video preprocessing, vLLM model loading, and supports both single-video inference and ViF-Bench batch evaluation.
+
+#### File Structure
+
+| File | Description |
+|------|-------------|
+| `serve.sh` | Launch the vLLM inference server |
+| `server.py` | FastAPI server with endpoints: `/v1/analyze`, `/v1/analyze_batch`, `/v1/analyze_frames` |
+| `model_engine.py` | vLLM model loading, prompt construction, and inference |
+| `video_processor.py` | Video frame extraction (16 uniformly-sampled frames, short side resized to 256px) |
+| `infer.py` | CLI inference tool (single video / batch, local / server mode) |
+| `eval_vifbench.py` | ViF-Bench evaluation with paired metrics (Balanced ACC, Recall, F1) |
+| `run_eval_vifbench.sh` | One-click script to evaluate Skyra-SFT and Skyra-RL on ViF-Bench |
+
+#### 1. Start the Inference Server
+
+```bash
+cd eval/inference_end2end
+
+# Default: 4 GPUs, port 8000
+MODEL_PATH=/path/to/Skyra-SFT bash serve.sh
+
+# Custom configuration
+CUDA_VISIBLE_DEVICES=0,1 TP_SIZE=2 PORT=8001 MODEL_PATH=/path/to/Skyra-SFT bash serve.sh
+```
+
+#### 2. Single / Batch Video Inference
+
+```bash
+# Single video via server
+python infer.py --server_url http://localhost:8000 --input /path/to/video.mp4
+
+# Directory of videos
+python infer.py --server_url http://localhost:8000 --input /path/to/videos/ --output results.json
+
+# Local mode (no server needed, loads vLLM directly)
+python infer.py --local --model_path /path/to/Skyra-SFT --input /path/to/video.mp4
+```
+
+#### 3. ViF-Bench Evaluation
+
+```bash
+# Quick start: evaluate both Skyra-SFT and Skyra-RL
+bash run_eval_vifbench.sh all    # or "sft" / "rl" for individual models
+
+# Via server
+python eval_vifbench.py \
+    --bench_root /path/to/ViF-Bench \
+    --server_url http://localhost:8000 \
+    --save_dir results/
+
+# Local mode
+python eval_vifbench.py \
+    --bench_root /path/to/ViF-Bench \
+    --local --model_path /path/to/Skyra-SFT \
+    --save_dir results/
+```
+
+The evaluation script supports **checkpoint resuming** — re-run the same command to continue from where it left off. Results include per-model paired metrics (Balanced ACC, Recall, F1) saved in both JSON and CSV formats.
 
 ## ⚖️ License
 
